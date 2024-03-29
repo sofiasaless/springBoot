@@ -29,6 +29,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!-- hot swap: serve para aplicar pequenas mudanças na aplicação sem necessiariamente reiniciá-la   -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
