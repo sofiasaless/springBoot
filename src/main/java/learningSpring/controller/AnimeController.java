@@ -7,7 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,9 +35,18 @@ public class AnimeController {
     // end point que vai listar
     // localhost:8080/anime
     @GetMapping
-    public List<Anime> list(){
+    public ResponseEntity<List<Anime>> list(){
         log.info(dateUtil.formatLocalDateTimeToDatebaseStyle(LocalDateTime.now()));
-        return animeService.listAll();
+        // retornando o status da requisição
+//        return new ResponseEntity<>(animeService.listAll(), HttpStatus.OK);
+        return ResponseEntity.ok(animeService.listAll());
     }
+
+    // como o método será acessado pelo getmapping
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Anime> findById(@PathVariable long id){
+        return ResponseEntity.ok(animeService.findById(id));
+    }
+
 
 }
