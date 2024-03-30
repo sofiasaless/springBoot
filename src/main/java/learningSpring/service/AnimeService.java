@@ -37,4 +37,8 @@ public class AnimeService {
         return anime;
     }
 
+    public void delete(long id){
+        // usando o findById, caso o anime não exista ele lança o bad request de anime not found
+        animes.remove(findById(id));
+    }
 }

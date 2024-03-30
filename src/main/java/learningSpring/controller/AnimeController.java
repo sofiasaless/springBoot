@@ -53,4 +53,20 @@ public class AnimeController {
         return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
     }
 
+    // deletando objetos
+    // é necessário colocar o (path = "/{id}") para identificar que há uma entrada ... estava dando esse erro
+
+//    {
+//        "timestamp": "2024-03-30T21:37:02.645+00:00",
+//            "status": 405,
+//            "error": "Method Not Allowed",
+//            "message": "Method 'DELETE' is not supported.",
+//            "path": "/animes/39255"
+//    }
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id){
+        animeService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
