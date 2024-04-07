@@ -49,7 +49,8 @@ public class AnimeController {
     // ta esperando um requestBody
     @PostMapping
     public ResponseEntity<Anime> save(@RequestBody Anime anime){
-        animeService.save(anime);
+//        animeService.save(anime);
+        // o anime tava sendo criado 2 vezes, ou seja, qnd eu via a lista tinha animes duplicados devido a linha de cima estar executando na linha de baixo também
         return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
     }
 
