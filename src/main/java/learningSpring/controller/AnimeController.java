@@ -69,4 +69,10 @@ public class AnimeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // o RequestBody significa a necessidade de escrever o objeto em json para determinada ação
+    @PutMapping
+    public ResponseEntity<Void> replace(@RequestBody Anime anime){
+        animeService.replace(anime);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

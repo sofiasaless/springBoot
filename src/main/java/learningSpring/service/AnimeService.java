@@ -41,4 +41,9 @@ public class AnimeService {
         // usando o findById, caso o anime não exista ele lança o bad request de anime not found
         animes.remove(findById(id));
     }
+
+    public void replace(Anime anime){
+        delete(anime.getId());
+        animes.add(anime);
+    }
 }
