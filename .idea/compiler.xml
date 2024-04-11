@@ -12,7 +12,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="springboot-learning" target="17" />
-      <module name="springboot-SofiaLearning" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
