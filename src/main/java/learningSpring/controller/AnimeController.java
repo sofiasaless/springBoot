@@ -1,6 +1,8 @@
 package learningSpring.controller;
 
 import learningSpring.domain.Anime;
+import learningSpring.requests.AnimePostRequestBody;
+import learningSpring.requests.AnimePutRequestBody;
 import learningSpring.service.AnimeService;
 import learningSpring.util.DateUtil;
 import lombok.AllArgsConstructor;
@@ -42,16 +44,16 @@ public class AnimeController {
     // como o método será acessado pelo getmapping
     @GetMapping(path = "/{id}")
     public ResponseEntity<Anime> findById(@PathVariable long id){
-        return ResponseEntity.ok(animeService.findById(id));
+        return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
 
     // publicando "postando" objetos
     // ta esperando um requestBody
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody Anime anime){
+    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody){
 //        animeService.save(anime);
         // o anime tava sendo criado 2 vezes, ou seja, qnd eu via a lista tinha animes duplicados devido a linha de cima estar executando na linha de baixo também
-        return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
+        return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
     }
 
     // deletando objetos
@@ -72,8 +74,8 @@ public class AnimeController {
 
     // o RequestBody significa a necessidade de escrever o objeto em json para determinada ação
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Anime anime){
-        animeService.replace(anime);
+    public ResponseEntity<Void> replace(@RequestBody AnimePutRequestBody animePutRequestBody){
+        animeService.replace(animePutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

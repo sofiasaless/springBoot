@@ -10,3 +10,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    # corrigindo warn open-in-view
+    # tava dando esse warn:
+    # 2024-04-11T16:28:16.615-03:00  WARN 56010 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+    open-in-view: false
