@@ -1,6 +1,7 @@
 package learningSpring.service;
 
 import learningSpring.domain.Anime;
+import learningSpring.mapper.AnimeMapper;
 import learningSpring.repository.AnimeRepository;
 import learningSpring.requests.AnimePostRequestBody;
 import learningSpring.requests.AnimePutRequestBody;
@@ -32,7 +33,9 @@ public class AnimeService {
 
     // salvando animes
     public Anime save(AnimePostRequestBody animePostRequestBody){
-        return animeRepository.save(Anime.builder().name(animePostRequestBody.getName()).build());
+        // nao sera mais necessario usar o builder, pois o AnimeMapper vai fazer isso
+//        return animeRepository.save(Anime.builder().name(animePostRequestBody.getName()).build());
+        return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
 
     public void delete(long id){
@@ -42,12 +45,10 @@ public class AnimeService {
     }
 
     public void replace(AnimePutRequestBody animePutRequestBody){
+        // o AnimeMapper tambem vai ser utilizado no replace
         Anime animeSaved = findByIdOrThrowBadRequestException(animePutRequestBody.getId());
-        Anime anime = Anime.builder()
-                .id(animeSaved.getId())
-                .name(animePutRequestBody.getName())
-        .build();
-
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        anime.setId(animeSaved.getId());
         animeRepository.save(anime);
 
 //        delete(anime.getId());
