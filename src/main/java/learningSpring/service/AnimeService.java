@@ -1,6 +1,7 @@
 package learningSpring.service;
 
 import learningSpring.domain.Anime;
+import learningSpring.exception.BadRequestException;
 import learningSpring.mapper.AnimeMapper;
 import learningSpring.repository.AnimeRepository;
 import learningSpring.requests.AnimePostRequestBody;
@@ -28,7 +29,7 @@ public class AnimeService {
     // procurando o anime pelo id
     public Anime findByIdOrThrowBadRequestException(long id){
         return animeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
+                .orElseThrow(() -> new BadRequestException("Anime not found"));
     }
 
     // salvando animes
