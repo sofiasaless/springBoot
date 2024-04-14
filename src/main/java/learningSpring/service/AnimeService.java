@@ -1,5 +1,6 @@
 package learningSpring.service;
 
+import jakarta.transaction.Transactional;
 import learningSpring.domain.Anime;
 import learningSpring.exception.BadRequestException;
 import learningSpring.mapper.AnimeMapper;
@@ -33,10 +34,22 @@ public class AnimeService {
     }
 
     // salvando animes
+    // - para caso seu método precise de um row back, é necessario a anotação de transactional
+    // o transactional não funciona corretamente para exceptions do tipo check, é preciso adicionar (rollbackFor = Exception.class)
+    @Transactional
     public Anime save(AnimePostRequestBody animePostRequestBody){
-        // nao sera mais necessario usar o builder, pois o AnimeMapper vai fazer isso
-//        return animeRepository.save(Anime.builder().name(animePostRequestBody.getName()).build());
         return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
+
+
+        // TESTANDO TRANSAÇÕES
+
+//        Anime anime = animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
+//
+//        //testando transações
+//        if(true)
+//            throw new RuntimeException("bad code");
+//        return anime;
+
     }
 
     public void delete(long id){

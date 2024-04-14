@@ -1,5 +1,6 @@
 package learningSpring.controller;
 
+import jakarta.validation.Valid;
 import learningSpring.domain.Anime;
 import learningSpring.requests.AnimePostRequestBody;
 import learningSpring.requests.AnimePutRequestBody;
@@ -50,9 +51,8 @@ public class AnimeController {
     // publicando "postando" objetos
     // ta esperando um requestBody
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody){
-//        animeService.save(anime);
-        // o anime tava sendo criado 2 vezes, ou seja, qnd eu via a lista tinha animes duplicados devido a linha de cima estar executando na linha de baixo também
+    // através do valid eu falo ao spring q eu quero a validação automática, dps de implementar lá no animepostrequestbody
+    public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
         return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
     }
 
