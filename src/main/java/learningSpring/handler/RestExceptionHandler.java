@@ -2,14 +2,20 @@ package learningSpring.handler;
 
 import learningSpring.exception.BadRequestException;
 import learningSpring.exception.BadRequestExceptionDetails;
+import learningSpring.exception.ExceptionDetails;
 import learningSpring.exception.ValidationExceptionDetails;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.util.WebUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,10 +26,10 @@ import java.util.stream.Collectors;
 // com essa anotacao falo para o controller que essa é uma classe com as informações que ele precisa utilizar
 @ControllerAdvice
 @Log4j2
-public class RestExceptionHandler {
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     // falando para os controllers que caso vc tenha uma exceção do tipo badrequest, utiliza-se esse exceptionhandler
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<BadRequestExceptionDetails> handlerBadRequestException(BadRequestException bre) {
+    public ResponseEntity<BadRequestExceptionDetails> handleBadRequestException(BadRequestException bre) {
         return new ResponseEntity<>(
                 BadRequestExceptionDetails.builder()
                         .timestamp(LocalDateTime.now())
@@ -37,8 +43,9 @@ public class RestExceptionHandler {
 
 
     // descobrindo qual a exeção que tá sendo lançada
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationExceptionDetails> handlerMethodArgumentNotValidException (MethodArgumentNotValidException exception) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid
+        (MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatus status, WebRequest request)
+    {
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
         String fields = fieldErrors.stream().map(FieldError::getField).collect(Collectors.joining(","));
         String fieldsMassage = fieldErrors.stream().map(FieldError::getDefaultMessage).collect(Collectors.joining(", "));
@@ -54,5 +61,23 @@ public class RestExceptionHandler {
                         .fieldMessage(fieldsMassage)
                         .build(), HttpStatus.BAD_REQUEST
         );
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal
+            (Exception ex, Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request)
+    {
+        if (HttpStatus.INTERNAL_SERVER_ERROR.equals(statusCode)) {
+            request.setAttribute(WebUtils.ERROR_EXCEPTION_ATTRIBUTE, ex, WebRequest.SCOPE_REQUEST);
+        }
+        ExceptionDetails exceptionDetails = ExceptionDetails.builder()
+                .timestamp(LocalDateTime.now())
+                .status(statusCode.value())
+                .title(ex.getCause().getMessage())
+                .details("Check the field(s) error")
+                .developerMessage(ex.getClass().getName())
+                .build();
+
+        return new ResponseEntity<>(exceptionDetails, headers, statusCode);
     }
 }
