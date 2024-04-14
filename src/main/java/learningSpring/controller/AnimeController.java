@@ -78,4 +78,13 @@ public class AnimeController {
         animeService.replace(animePutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    // necessario o /list para nao gerar ambiguidade com o findById
+    // com o request param não é necessario o /{name}, na url de requisição vai ficar :
+    // /animes/find?anime=steins gate
+    @GetMapping(path = "/find")
+    public ResponseEntity<List <Anime>> findByName(@RequestParam String name){
+        return ResponseEntity.ok(animeService.findByName(name));
+    }
+
 }

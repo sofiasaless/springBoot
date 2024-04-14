@@ -54,4 +54,10 @@ public class AnimeService {
 //        delete(anime.getId());
 //        animes.add(anime);
     }
+
+    // o metodo do repository vai duplicar aqui para funcionar
+    public List<Anime> findByName(String name){
+        return animeRepository.findByName(name);
+    }
+
 }
