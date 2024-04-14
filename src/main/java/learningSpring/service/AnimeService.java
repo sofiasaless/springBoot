@@ -8,13 +8,11 @@ import learningSpring.repository.AnimeRepository;
 import learningSpring.requests.AnimePostRequestBody;
 import learningSpring.requests.AnimePutRequestBody;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 // SERVICE: é onde fica a lógica de negócio
 @Service // para transformar em spring bean
@@ -23,8 +21,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class AnimeService {
     private final AnimeRepository animeRepository;
 
-    public List<Anime> listAll(){
-        return animeRepository.findAll();
+    public Page<Anime> listAll(Pageable pageable){
+        return animeRepository.findAll(pageable);
     }
 
     // procurando o anime pelo id
