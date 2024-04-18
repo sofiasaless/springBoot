@@ -42,6 +42,24 @@ public class SpringClient {
                 Anime.class);
         log.info("save anime {}", samuraiChamplooSaved);
 
+        // put
+        Anime animeToBeUpdated = samuraiChamplooSaved.getBody();
+        animeToBeUpdated.setName("Samurai Champloo 2");
+
+        ResponseEntity<Void> samuraiCamplooUpdate = new RestTemplate().exchange("http://localhost:8080/animes/",
+              HttpMethod.PUT,
+              new HttpEntity<>(animeToBeUpdated, createJsonHeader()),
+              Void.class);
+        log.info(samuraiCamplooUpdate);
+
+        // delete
+        ResponseEntity<Void> samuraiCamplooDelete = new RestTemplate().exchange("http://localhost:8080/animes/{id}",
+                HttpMethod.DELETE,
+                null,
+                Void.class,
+                animeToBeUpdated.getId());
+        log.info(samuraiCamplooDelete);
+
     }
 
     //
