@@ -6,6 +6,7 @@ package learningSpring.repository;
 
 import jakarta.validation.ConstraintViolationException;
 import learningSpring.domain.Anime;
+import learningSpring.util.AnimeCreator;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +28,7 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Save persists Anime when Successful")
     void save_PersistAnime_WhenSuccessful(){
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = this.animeRepository.save(animeToBeSaved);
 
         // testando se o anime não é nulo
@@ -43,7 +44,7 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Save updates Anime when Successful")
     void save_UpdateAnime_WhenSuccessful(){
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = this.animeRepository.save(animeToBeSaved);
 
         // alterando o nome do anime para fazer update
@@ -61,7 +62,7 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Delete removes Anime when Successful")
     void delete_RemovesAnime_WhenSuccessful(){
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = this.animeRepository.save(animeToBeSaved);
 
         this.animeRepository.delete(animeSaved);
@@ -75,7 +76,7 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Find By Name returns list of Anime when Successful")
     void findByName_ReturnsListOfAnime_WhenSuccessful(){
-        Anime animeToBeSaved = createAnime();
+        Anime animeToBeSaved = AnimeCreator.createAnimeToBeSaved();
         Anime animeSaved = this.animeRepository.save(animeToBeSaved);
 
         String name = animeSaved.getName();
@@ -108,10 +109,11 @@ class AnimeRepositoryTest {
         Assertions.assertThat(animes).isEmpty();
     }
 
-    private Anime createAnime(){
-        return Anime.builder()
-                .name("Hajime no Ippo")
-        .build();
-    }
+    // passando para o pacote util
+//    private Anime AnimeCreator.createAnimeToBeSaved(){
+//        return Anime.builder()
+//                .name("Hajime no Ippo")
+//        .build();
+//    }
 
 }
