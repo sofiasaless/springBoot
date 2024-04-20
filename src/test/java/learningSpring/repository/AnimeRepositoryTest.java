@@ -4,6 +4,7 @@
 
 package learningSpring.repository;
 
+import jakarta.validation.ConstraintViolationException;
 import learningSpring.domain.Anime;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
@@ -81,10 +82,21 @@ class AnimeRepositoryTest {
 
         List<Anime> animes = this.animeRepository.findByName(name);
 
-        // testando se a lista ta vazia
-        Assertions.assertThat(animes).isNotEmpty();
-        // testando se a lista contem o anime que foi salvo
-        Assertions.assertThat(animes).contains(animeSaved);
+        // testando se a lista ta vazia e se contem o animeSaved
+        Assertions.assertThat(animes).isNotEmpty().contains(animeSaved);
+    }
+
+    @Test
+    @DisplayName("Save throw ConstraintViolationException when name is empty")
+    void save_ThrowsConstraintViolationException_WhenNameIsEmpty(){
+        Anime anime = new Anime();
+        Assertions.assertThatThrownBy(() -> this.animeRepository.save(anime))
+                .isInstanceOf(ConstraintViolationException.class);
+
+        // outra forma de fazer
+//        Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
+//                .isThrownBy(() -> this.animeRepository.save(anime))
+//                .withMessageContaining("The anime name cannot be empty");
     }
 
     @Test
