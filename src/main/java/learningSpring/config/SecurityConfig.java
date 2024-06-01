@@ -3,6 +3,8 @@ package learningSpring.config;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
@@ -17,6 +19,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @Log4j2
+@EnableMethodSecurity(prePostEnabled = true) //
 public class SecurityConfig {
 
     @Bean
@@ -41,11 +44,16 @@ public class SecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        UserDetails user = User.withUsername("sofia")
+        UserDetails userAdmin = User.withUsername("sofia")
                 .password(encoder.encode("test"))
-                .roles("USER", "ADMIN")
+                .roles("ADMIN")
                 .build();
-        return new InMemoryUserDetailsManager(user);
+
+        UserDetails userUser = User.withUsername("ned")
+                .password(encoder.encode("test"))
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(userAdmin, userUser);
     }
 
 

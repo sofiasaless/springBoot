@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -57,6 +58,8 @@ public class AnimeController {
     // ta esperando um requestBody
     @PostMapping
     // através do valid eu falo ao spring q eu quero a validação automática, dps de implementar lá no animepostrequestbody
+    @PreAuthorize("hasRole('ADMIN')") // colocando segurança em um método ...
+    // antes de executar esse método é necessário pre-autorizar com a role admin ou user, no caso aqui será ADMIN, se o usuário for ADMIN poderá executar o método
     public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
         return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
     }
