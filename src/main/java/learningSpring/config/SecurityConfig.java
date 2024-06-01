@@ -38,6 +38,8 @@ public class SecurityConfig {
 //        http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
         http.authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/animes/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/animes/**").hasRole("USER")
                     .anyRequest().authenticated()
             )
                 .formLogin(withDefaults()) // agora para acessar a api pelo navegador é necessário um dos users
