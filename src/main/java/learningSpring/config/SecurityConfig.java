@@ -31,6 +31,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((authz) -> authz
                     .anyRequest().authenticated()
             )
+                .formLogin(withDefaults()) // agora para acessar a api pelo navegador é necessário um dos users
             .httpBasic(withDefaults());
         return http.build();
 
