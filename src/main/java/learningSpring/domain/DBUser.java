@@ -29,6 +29,7 @@ public class DBUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty(message = "The user's name can't be empty")
     private String name;
     private String username;
     private String password;
