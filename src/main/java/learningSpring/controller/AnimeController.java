@@ -67,7 +67,7 @@ public class AnimeController {
     // ta esperando um requestBody
     @PostMapping
     // através do valid eu falo ao spring q eu quero a validação automática, dps de implementar lá no animepostrequestbody
-    @PreAuthorize("hasRole('ADMIN')") // colocando segurança em um método ...
+//    @PreAuthorize("hasRole('ADMIN')") // colocando segurança em um método ...
     // antes de executar esse método é necessário pre-autorizar com a role admin ou user, no caso aqui será ADMIN, se o usuário for ADMIN poderá executar o método
     public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
         return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
@@ -83,7 +83,7 @@ public class AnimeController {
 //            "message": "Method 'DELETE' is not supported.",
 //            "path": "/animes/39255"
 //    }
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id){
         animeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
