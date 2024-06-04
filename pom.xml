@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.4</version>
+		<version>2.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>learningSpring</groupId>
@@ -19,16 +19,15 @@
 	</properties>
 	<dependencies>
 <!--		dependência para documentação springdoc com requisições disponíveis para front-end -->
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.5.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springdoc</groupId>-->
+<!--			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+<!--			<version>2.5.0</version>-->
+<!--		</dependency>-->
 
 		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webflux-api</artifactId>
-			<version>2.5.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
 <!--		a partir de agora, qualquer requisição vai exigir uma senha que é dada ao iniciar a api -->
@@ -37,10 +36,7 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
+
 <!--	para o AnimeMapper funcionar efetivamente é necessario adicionar o lombok-mapstruct, os animes estavam salvando com nomes nulos	-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

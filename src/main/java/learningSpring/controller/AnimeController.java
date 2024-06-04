@@ -1,6 +1,6 @@
 package learningSpring.controller;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import learningSpring.domain.Anime;
 import learningSpring.requests.AnimePostRequestBody;
 import learningSpring.requests.AnimePutRequestBody;
@@ -9,7 +9,6 @@ import learningSpring.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,7 +41,7 @@ public class AnimeController {
     // localhost:8080/anime
     // 14/04 - agora retornando um page
     @GetMapping
-    public ResponseEntity<Page<Anime>> list(@ParameterObject Pageable pageable){
+    public ResponseEntity<Page<Anime>> list(Pageable pageable){
         return ResponseEntity.ok(animeService.listAll(pageable));
     }
 

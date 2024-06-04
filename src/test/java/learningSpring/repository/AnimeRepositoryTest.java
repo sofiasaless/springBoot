@@ -4,7 +4,7 @@
 
 package learningSpring.repository;
 
-import jakarta.validation.ConstraintViolationException;
+import javax.validation.ConstraintViolationException;
 import learningSpring.domain.Anime;
 import learningSpring.util.AnimeCreator;
 import lombok.extern.log4j.Log4j2;

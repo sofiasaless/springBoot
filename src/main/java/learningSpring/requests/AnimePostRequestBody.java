@@ -1,8 +1,8 @@
 // para que não seja permitido enviar o id do anime, já que é feito automaticamente
 package learningSpring.requests;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

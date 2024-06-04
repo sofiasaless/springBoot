@@ -1,6 +1,6 @@
 package learningSpring.service;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import learningSpring.domain.Anime;
 import learningSpring.exception.BadRequestException;
 import learningSpring.mapper.AnimeMapper;

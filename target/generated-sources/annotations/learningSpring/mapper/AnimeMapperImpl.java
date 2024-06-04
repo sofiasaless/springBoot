@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-03T13:28:30-0300",
+    date = "2024-06-03T16:40:59-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 18.0.2-ea (Private Build)"
 )
 @Component
@@ -20,11 +20,11 @@ public class AnimeMapperImpl extends AnimeMapper {
             return null;
         }
 
-        Anime.AnimeBuilder anime = Anime.builder();
+        Anime anime = new Anime();
 
-        anime.name( animePostRequestBody.getName() );
+        anime.setName( animePostRequestBody.getName() );
 
-        return anime.build();
+        return anime;
     }
 
     @Override
@@ -33,11 +33,11 @@ public class AnimeMapperImpl extends AnimeMapper {
             return null;
         }
 
-        Anime.AnimeBuilder anime = Anime.builder();
+        Anime anime = new Anime();
 
-        anime.id( animePutRequestBody.getId() );
-        anime.name( animePutRequestBody.getName() );
+        anime.setId( animePutRequestBody.getId() );
+        anime.setName( animePutRequestBody.getName() );
 
-        return anime.build();
+        return anime;
     }
 }
