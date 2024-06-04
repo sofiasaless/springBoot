@@ -18,6 +18,19 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+<!--		dependência para documentação springdoc com requisições disponíveis para front-end -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webflux-api</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+
 <!--		a partir de agora, qualquer requisição vai exigir uma senha que é dada ao iniciar a api -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -1,0 +1,4 @@
+FINAL:
+
+- estudar e revisar spring security 6 para spring boot 3, os métodos criados na classe SecurityConfig não estão funcionando perfeitmanete como deveriam, é necessário entender e refazê-los;
+- o estudo de documentação spring está registrada na branch final-features com outros conteúdos;
