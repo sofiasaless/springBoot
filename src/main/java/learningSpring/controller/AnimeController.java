@@ -1,6 +1,10 @@
 package learningSpring.controller;
 
 import javax.validation.Valid;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import learningSpring.domain.Anime;
 import learningSpring.requests.AnimePostRequestBody;
 import learningSpring.requests.AnimePutRequestBody;
@@ -42,6 +46,8 @@ public class AnimeController {
     // localhost:8080/anime
     // 14/04 - agora retornando um page
     @GetMapping
+    @Operation(summary = "List all animes paginated", description = "The default size is 20, use the parameter size to change the defaul value",
+    tags = {"animes"}) // adicionando descrição do endpoint
     public ResponseEntity<Page<Anime>> list(@ParameterObject Pageable pageable){
         return ResponseEntity.ok(animeService.listAll(pageable));
     }
@@ -85,6 +91,11 @@ public class AnimeController {
 //            "path": "/animes/39255"
 //    }
     @DeleteMapping(path = "/admin/{id}")
+    // customizando responses na open-api
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Successful Operation"),
+            @ApiResponse(responseCode = "400", description = "When Anime does not exist in the database")
+    })
     public ResponseEntity<Void> delete(@PathVariable long id){
         animeService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
