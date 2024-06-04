@@ -18,6 +18,18 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+<!--		actuator  	-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+<!-- 	prometheus	-->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+		</dependency>
+
+
 <!--		dependência para documentação springdoc com requisições disponíveis para front-end -->
 		<dependency>
 			<groupId>org.springdoc</groupId>

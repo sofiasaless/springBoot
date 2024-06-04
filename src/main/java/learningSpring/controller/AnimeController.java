@@ -73,7 +73,6 @@ public class AnimeController {
     // publicando "postando" objetos
     // ta esperando um requestBody
     @PostMapping
-    // através do valid eu falo ao spring q eu quero a validação automática, dps de implementar lá no animepostrequestbody
 //    @PreAuthorize("hasRole('ADMIN')") // colocando segurança em um método ...
     // antes de executar esse método é necessário pre-autorizar com a role admin ou user, no caso aqui será ADMIN, se o usuário for ADMIN poderá executar o método
     public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
@@ -81,15 +80,6 @@ public class AnimeController {
     }
 
     // deletando objetos
-    // é necessário colocar o (path = "/{id}") para identificar que há uma entrada ... estava dando esse erro
-
-//    {
-//        "timestamp": "2024-03-30T21:37:02.645+00:00",
-//            "status": 405,
-//            "error": "Method Not Allowed",
-//            "message": "Method 'DELETE' is not supported.",
-//            "path": "/animes/39255"
-//    }
     @DeleteMapping(path = "/admin/{id}")
     // customizando responses na open-api
     @ApiResponses(value = {
